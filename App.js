@@ -1,21 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import MyStack from './src/Utils/Route';
+import MyStack from "./src/Utils/Route";
+import { KeyboardAvoiderProvider } from "@good-react-native/keyboard-avoider";
 export default function App() {
   return (
-    <NavigationContainer>
-      <StatusBar style='dark' />
-      <MyStack />
-    </NavigationContainer>
+    <KeyboardAvoiderProvider style={styles.container}>
+      <NavigationContainer>
+        <StatusBar style="dark" />
+        <MyStack />
+      </NavigationContainer>
+    </KeyboardAvoiderProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });

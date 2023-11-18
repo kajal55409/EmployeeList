@@ -33,7 +33,7 @@ export const Common_styles = {
     fontWeight: "500",
     marginTop: 30,
   },
-  mainbackBtn: {
+  menuBtn: {
     width: "15%",
     height: 50,
     justifyContent: "center",
