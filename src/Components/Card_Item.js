@@ -1,27 +1,62 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
+import React, { useState, useEffect } from "react";
 import { Colors } from "../Utils/Colors";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+const Card_Item = ({ item, index }) => {
+    const isfocus = useIsFocused();
+  const [employeeDAta, setEmployeeData] = useState([]);
 
-const Card_Item = ({item}) => {
+  const DeleteEmployeeData = async (index) => {
+    const TempEmployee = employeeDAta;
+    const selectedEmp = TempEmployee.filter(({item, ind}) => {
+      return ind != index;
+    });
+    setEmployeeData(selectedEmp);
+    await AsyncStorage.setItem("EMPLOYEE", JSON.stringify(selectedEmp));
+    alert("Deleted Successfully");
+  };
+
   return (
     <View style={styles.card_view}>
       <View style={styles.circle_view}>
         <Text style={{ textAlign: "center", fontSize: 23 }}>
-          {item.firstName[0]}
-          {item.lastName[0]}
+          {item?.firstName[0]}
+          {item?.lastName[0]}
+       
         </Text>
       </View>
 
-      <View style={{ marginHorizontal: 20, width: "60%" }}>
+      <View style={{ marginHorizontal: 20, width: "50%" }}>
         <Text style={styles.card_text1}>
           {item.firstName} {item.lastName}
         </Text>
         <Text style={styles.card_text2}>{item.jobTitle}</Text>
       </View>
 
-      <View style={{ justifyContent: "center", width: "10%" }}>
-        <Ionicons name="star-outline" size={24} color="black" />
+      <View
+        style={{
+          justifyContent: "space-between",
+          width: "20%",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        <Ionicons name="star-outline" size={20} color="black" />
+        <TouchableOpacity onPress={() => DeleteEmployeeData(index)}>
+          <MaterialCommunityIcons
+            name="delete"
+            size={24}
+            color={Colors.green}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );

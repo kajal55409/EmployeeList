@@ -11,24 +11,35 @@ import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 import { Common_styles } from "../Components/Common_Styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+let employee = [];
 const Add_Employee = () => {
   const navigation = useNavigation();
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [jobTitle, setJobTitle] = useState();
   const [salary, setSalary] = useState();
-let employee =[];
-  const SaveEmployeeList = async() => {
- employee.push({
-  firstName: firstName,
-  lastName: lastName,
-  jobTitle: jobTitle,
-  salary: salary
- });
- await AsyncStorage.setItem("EMPLOYEE", JSON.stringify(employee));
- navigation.navigate("Home");
- console.log("employee", employee);
+
+
+  const SaveEmployeeList = async () => {
+    let Tempemployee = [];
+    employee =[];
+    let x = JSON.parse(await AsyncStorage.getItem("EMPLOYEE"));
+    Tempemployee=x;
+    Tempemployee.map(item=>{
+      employee.push(item);
+    })
+    employee.push({
+      firstName: firstName,
+      lastName: lastName,
+      jobTitle: jobTitle,
+      salary: salary,
+    });
+    await AsyncStorage.setItem("EMPLOYEE", JSON.stringify(employee));
+    navigation.navigate("Home");
+    console.log("employee", employee);
   };
+
+
 
   return (
     <View style={styles.container}>

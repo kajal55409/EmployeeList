@@ -5,24 +5,22 @@ import { Colors } from "../Utils/Colors";
 import { StatusBar } from "expo-status-bar";
 import { Feather, SimpleLineIcons, Entypo } from "@expo/vector-icons";
 import { Common_styles } from "./Common_Styles";
-const Header = (props) => {
+const Header = () => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.maintoolview}>
       <StatusBar backgroundColor={Colors.white} />
       <TouchableOpacity
-        style={Common_styles.mainbackBtn}
-        onPress={() =>
-          props.onPress
-            ? navigation.navigate(props.onPress)
-            : navigation.goBack()
+        style={Common_styles.menuBtn}
+        onPress={
+          () => navigation.openDrawer()
         }
       >
         <Feather name={"menu"} size={30} color={"black"} />
       </TouchableOpacity>
 
-      <Text style={Common_styles.maintooltxt}>Index</Text>
+      <Text style={Common_styles.maintooltxt}>Inbox</Text>
 
       <TouchableOpacity
         style={{
@@ -32,7 +30,6 @@ const Header = (props) => {
           height: 40,
           justifyContent: "flex-end",
         }}
-        // onPress={() => navigation.navigate("")}
       >
         <Entypo name="dots-three-vertical" size={22} color={Colors.black} />
       </TouchableOpacity>
